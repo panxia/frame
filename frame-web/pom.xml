@@ -23,7 +23,7 @@
   
   
   <build>
-    <finalName>frame</finalName>
+    <finalName>frame-web</finalName>
   </build>
   
 </project>

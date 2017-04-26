@@ -4,7 +4,6 @@ import com.ffcs.dao.SysRoleDao;
 import com.ffcs.entity.SysRoleEntity;
 import com.ffcs.service.SysRoleMenuService;
 import com.ffcs.service.SysRoleService;
-import com.ffcs.service.SysUserRoleService;
 import com.ffcs.service.SysUserService;
 import com.ffcs.utils.Constant;
 import com.ffcs.utils.RRException;
@@ -29,8 +28,6 @@ public class SysRoleServiceImpl implements SysRoleService {
 	private SysRoleDao sysRoleDao;
 	@Autowired
 	private SysRoleMenuService sysRoleMenuService;
-	@Autowired
-	private SysUserRoleService sysUserRoleService;
 	@Autowired
 	private SysUserService sysUserService;
 

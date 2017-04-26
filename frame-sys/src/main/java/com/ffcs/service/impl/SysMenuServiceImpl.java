@@ -3,7 +3,6 @@ package com.ffcs.service.impl;
 import com.ffcs.dao.SysMenuDao;
 import com.ffcs.entity.SysMenuEntity;
 import com.ffcs.service.SysMenuService;
-import com.ffcs.service.SysRoleMenuService;
 import com.ffcs.service.SysUserService;
 import com.ffcs.utils.Constant.MenuType;
 
@@ -22,8 +21,6 @@ public class SysMenuServiceImpl implements SysMenuService {
 	private SysMenuDao sysMenuDao;
 	@Autowired
 	private SysUserService sysUserService;
-	@Autowired
-	private SysRoleMenuService sysRoleMenuService;
 	
 	@Override
 	public List<SysMenuEntity> queryListParentId(Long parentId, List<Long> menuIdList) {

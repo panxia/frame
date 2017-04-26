@@ -223,6 +223,7 @@
 			</plugin>
 			<!-- tomcat7 plugin -->
 			<!-- 调用Maven命令：mvn tomcat7:run -->
+			<!--  
 			<plugin>
 				<groupId>org.apache.tomcat.maven</groupId>
 				<artifactId>tomcat7-maven-plugin</artifactId>
@@ -234,6 +235,7 @@
 					<uriEncoding>UTF-8</uriEncoding>
 				</configuration>
 			</plugin>
+			-->
 		</plugins>
 		<resources>
 			<resource>
