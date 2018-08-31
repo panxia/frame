@@ -1,6 +1,6 @@
 **项目说明** 
 
-企业用框架，SSM+AdminLTE后台系统  
+企业用框架，SSM+AdminLTE后台系统  1
 
 运行命令：mvn tomcat7:run  
 
