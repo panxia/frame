@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>商业聚到搭建及应用</title>
+#parse("sys/header.html")
+</head>
+<body>
+<div id="rrapp" v-cloak>
+	<div v-show="showList">
+		<div class="grid-btn">
+			<div class="form-group col-sm-2">
+				<input type="text" class="form-control" v-model="q.key" @keyup.enter="query" placeholder="服务公司、姓名">
+			</div>
+			<div class="form-group col-sm-2">
+				<input  type="month"   class="form-control"   v-model="q.timeRange"  @keyup.enter="query" placeholder="期间">
+			</div>
+			<a class="btn btn-default" @click="query">查询</a>
+			#if($shiro.hasPermission("commercialchannelapp:save"))
+			<a class="btn btn-primary" @click="add"><i class="fa fa-plus"></i>&nbsp;新增</a>
+			#end
+			#if($shiro.hasPermission("commercialchannelapp:update"))
+			<a class="btn btn-primary" @click="update"><i class="fa fa-pencil-square-o"></i>&nbsp;修改</a>
+			#end
+			#if($shiro.hasPermission("commercialchannelapp:delete"))
+			<a class="btn btn-primary" @click="del"><i class="fa fa-trash-o"></i>&nbsp;删除</a>
+			#end
+			#if($shiro.hasPermission("commercialchannelapp:import"))
+			<a class="btn btn-primary" @click="del"><i class="fa fa-trash-o"></i>&nbsp;导入</a>
+			#end
+		</div>
+	    <table id="jqGrid"></table>
+	    <div id="jqGridPager"></div>
+    </div>
+
+	<div v-show="!showList" class="panel panel-default">
+		<div class="panel-heading">{{title}}</div>
+		<form class="form-horizontal">
+			<div class="form-group">
+				<div class="col-sm-2 control-label">期间</div>
+				<div class="col-sm-10">
+					<input type="input" class="form-control" id="test"  v-model="commercialChannelApp.timeRange"    placeholder="期间"/>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-sm-2 control-label">身份证号</div>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" v-model="commercialChannelApp.cardId" placeholder="身份证号"/>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-sm-2 control-label">姓名</div>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" v-model="commercialChannelApp.name" placeholder="姓名"/>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-sm-2 control-label">服务公司</div>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" v-model="commercialChannelApp.company" placeholder="服务公司"/>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-sm-2 control-label">线上渠道推广完成率</div>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" v-model="commercialChannelApp.onlineRate" placeholder="线上渠道推广完成率"/>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-sm-2 control-label">线下渠道推广成功完成率</div>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" v-model="commercialChannelApp.offlineRate" placeholder="线下渠道推广成功完成率"/>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-sm-2 control-label">有效转化数量</div>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" v-model="commercialChannelApp.effectiveQuantity" placeholder="有效转化数量"/>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-sm-2 control-label">有效用户数</div>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" v-model="commercialChannelApp.effectiveUser" placeholder="有效用户数"/>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-sm-2 control-label">奖励系数</div>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" v-model="commercialChannelApp.rewardCoefficient" placeholder="奖励系数"/>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-sm-2 control-label">项目最终所得</div>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" v-model="commercialChannelApp.finalIncome" placeholder="项目最终所得"/>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<div class="col-sm-2 control-label"></div>
+				<input type="button" class="btn btn-primary" @click="saveOrUpdate" value="确定"/>
+				&nbsp;&nbsp;<input type="button" class="btn btn-warning" @click="reload" value="返回"/>
+			</div>
+		</form>
+	</div>
+</div>
+
+<script src="${rc.contextPath}/js/chunxin/commercialchannelapp.js?_${date.systemTime}"></script>
+</body>
+</html>

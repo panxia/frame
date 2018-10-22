@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>税务申报</title>
+#parse("sys/header.html")
+<script src="${rc.contextPath}/statics/libs/ajaxupload.js"></script>
+</head>
+<body>
+<div id="rrapp" v-cloak>
+	<div v-show="showList">
+		<div class="grid-btn">
+			#if($shiro.hasPermission("taxdeclaration:save"))
+			<a class="btn btn-primary" @click="add"><i class="fa fa-plus"></i>&nbsp;新增</a>
+			#end
+			#if($shiro.hasPermission("taxdeclaration:update"))
+			<a class="btn btn-primary" @click="update"><i class="fa fa-pencil-square-o"></i>&nbsp;修改</a>
+			#end
+			#if($shiro.hasPermission("taxdeclaration:import"))
+			<a class="btn btn-primary" id="upload" ><i class="fa fa-plus"></i>&nbsp;导入</a>
+			#end
+			#if($shiro.hasPermission("taxdeclaration:delete"))
+			<a class="btn btn-primary" @click="del"><i class="fa fa-trash-o"></i>&nbsp;删除</a>
+			#end
+		</div>
+	    <table id="jqGrid"></table>
+	    <div id="jqGridPager"></div>
+    </div>
+    
+    <div v-show="!showList" class="panel panel-default">
+		<div class="panel-heading">{{title}}</div>
+		<form class="form-horizontal">
+											<div class="form-group">
+			   	<div class="col-sm-2 control-label">收款人</div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="taxDeclaration.payee" placeholder="收款人"/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label">银行账号</div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="taxDeclaration.bankAccount" placeholder="银行账号"/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label">开户行</div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="taxDeclaration.openBank" placeholder="开户行"/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label">开户地</div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="taxDeclaration.openPlace" placeholder="开户地"/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label">劳务人员</div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="taxDeclaration.labourPerson" placeholder="劳务人员"/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label">劳务人员身份证号</div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="taxDeclaration.labourCardid" placeholder="劳务人员身份证号"/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label">劳务人员手机号码</div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="taxDeclaration.labourPhone" placeholder="劳务人员手机号码"/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label">服务项目</div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="taxDeclaration.serviceItem" placeholder="服务项目"/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label">服务时间</div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="taxDeclaration.serviceTime" placeholder="服务时间"/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label">税前</div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="taxDeclaration.preTax" placeholder="税前"/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label">税后</div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="taxDeclaration.afterTax" placeholder="税后"/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label">实际付款</div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="taxDeclaration.actualPayment" placeholder="实际付款"/>
+			    </div>
+			</div>
+							<div class="form-group">
+				<div class="col-sm-2 control-label"></div> 
+				<input type="button" class="btn btn-primary" @click="saveOrUpdate" value="确定"/>
+				&nbsp;&nbsp;<input type="button" class="btn btn-warning" @click="reload" value="返回"/>
+			</div>
+		</form>
+	</div>
+</div>
+
+<script src="${rc.contextPath}/js/chunxin/taxdeclaration.js?_${date.systemTime}"></script>
+</body>
+</html>
