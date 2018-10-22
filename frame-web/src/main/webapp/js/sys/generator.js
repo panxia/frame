@@ -51,10 +51,11 @@ var vm = new Vue({
 		},
 		generator: function() {
 			var tableNames = getSelectedRows();
+			console.log();
 			if(tableNames == null){
 				return ;
 			}
-			location.href = "../sys/generator/code?tables=" + JSON.stringify(tableNames);
+			location.href = "../sys/generator/code?tables=" + tableNames.join(",");
 		}
 	}
 });

@@ -81,6 +81,6 @@
 	</bean>
 
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-		<property name="basePackage" value="com.ffcs.dao" />
+		<property name="basePackage" value="com.ffcs.dao,com.chunxin.dao" />
 	</bean>
 </beans>

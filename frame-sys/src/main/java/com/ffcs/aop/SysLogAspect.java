@@ -53,15 +53,24 @@ public class SysLogAspect {
 		sysLog.setMethod(className + "." + methodName + "()");
 		
 		//请求的参数
-		Object[] args = joinPoint.getArgs();
-		String params = JSON.toJSONString(args[0]);
-		sysLog.setParams(params);
-		
-		//获取request
-		HttpServletRequest request = HttpContextUtils.getHttpServletRequest();
-		//设置IP地址
-		sysLog.setIp(IPUtils.getIpAddr(request));
-		
+
+		try {
+			Object[] args = joinPoint.getArgs();
+			String params = JSON.toJSONString(args[0]);
+			sysLog.setParams(params);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		try {
+			//获取request
+			HttpServletRequest request = HttpContextUtils.getHttpServletRequest();
+			//设置IP地址
+			sysLog.setIp(IPUtils.getIpAddr(request));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
 		//用户名
 		String username = ShiroUtils.getUserEntity().getUsername();
 		sysLog.setUsername(username);

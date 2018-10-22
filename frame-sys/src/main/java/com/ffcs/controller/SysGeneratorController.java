@@ -57,7 +57,7 @@ public class SysGeneratorController {
 		//获取表名，不进行xss过滤
 		HttpServletRequest orgRequest = XssHttpServletRequestWrapper.getOrgRequest(request);
 		String tables = orgRequest.getParameter("tables");
-		tableNames = JSON.parseArray(tables).toArray(tableNames);
+		tableNames = tables.split(",");
 		
 		byte[] data = sysGeneratorService.generatorCode(tableNames);
 		

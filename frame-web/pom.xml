@@ -18,7 +18,6 @@
             <artifactId>frame-sys</artifactId>
             <version>${frame-version}</version>
     </dependency>
-    
   </dependencies>
   
   
