@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.chunxin.dao.CommercialChannelAppDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.chunxin.entity.CommercialChannelAppEntity" id="commercialChannelAppMap">
+        <result property="id" column="id"/>
+        <result property="timeRange" column="time_range"/>
+        <result property="cardId" column="card_id"/>
+        <result property="name" column="name"/>
+        <result property="company" column="company"/>
+        <result property="onlineRate" column="online_rate"/>
+        <result property="offlineRate" column="offline_rate"/>
+        <result property="effectiveQuantity" column="effective_quantity"/>
+        <result property="effectiveUser" column="effective_user"/>
+        <result property="rewardCoefficient" column="reward_coefficient"/>
+        <result property="finalIncome" column="final_income"/>
+        <result property="createTime" column="create_time"/>
+    </resultMap>
+
+	<select id="queryObject" resultType="com.chunxin.entity.CommercialChannelAppEntity">
+		select * from commercial_channel_app where id = #{value}
+	</select>
+
+	<select id="queryList" resultType="com.chunxin.entity.CommercialChannelAppEntity">
+		select * from commercial_channel_app
+		<where>
+			<if test="key != null and key.trim() != ''">
+				and (`name` like concat('%',#{key},'%') or `company` like concat('%',#{key},'%') )
+			</if>
+			<if test="timeRange != null and timeRange.trim() != ''">
+				and date_format(`time_range`, '%Y-%m') = #{timeRange}
+			</if>
+		</where>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="queryTotal" resultType="int">
+		select count(*) from commercial_channel_app
+		<where>
+			<if test="key != null and key.trim() != ''">
+				and (`name` like concat('%',#{key},'%') or `company` like concat('%',#{key},'%') )
+			</if>
+			<if test="timeRange != null and timeRange.trim() != ''">
+				and date_format(`time_range`, '%Y-%m') = #{timeRange}
+			</if>
+		</where>
+	</select>
+	 
+	<insert id="save" parameterType="com.chunxin.entity.CommercialChannelAppEntity" useGeneratedKeys="true" keyProperty="id">
+		insert into commercial_channel_app
+		(
+			`time_range`, 
+			`card_id`, 
+			`name`, 
+			`company`, 
+			`online_rate`, 
+			`offline_rate`, 
+			`effective_quantity`, 
+			`effective_user`, 
+			`reward_coefficient`, 
+			`final_income`, 
+			`create_time`
+		)
+		values
+		(
+			#{timeRange}, 
+			#{cardId}, 
+			#{name}, 
+			#{company}, 
+			#{onlineRate}, 
+			#{offlineRate}, 
+			#{effectiveQuantity}, 
+			#{effectiveUser}, 
+			#{rewardCoefficient}, 
+			#{finalIncome}, 
+			#{createTime}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="com.chunxin.entity.CommercialChannelAppEntity">
+		update commercial_channel_app 
+		<set>
+			<if test="timeRange != null">`time_range` = #{timeRange}, </if>
+			<if test="cardId != null">`card_id` = #{cardId}, </if>
+			<if test="name != null">`name` = #{name}, </if>
+			<if test="company != null">`company` = #{company}, </if>
+			<if test="onlineRate != null">`online_rate` = #{onlineRate}, </if>
+			<if test="offlineRate != null">`offline_rate` = #{offlineRate}, </if>
+			<if test="effectiveQuantity != null">`effective_quantity` = #{effectiveQuantity}, </if>
+			<if test="effectiveUser != null">`effective_user` = #{effectiveUser}, </if>
+			<if test="rewardCoefficient != null">`reward_coefficient` = #{rewardCoefficient}, </if>
+			<if test="finalIncome != null">`final_income` = #{finalIncome}, </if>
+			<if test="createTime != null">`create_time` = #{createTime}</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<delete id="delete">
+		delete from commercial_channel_app where id = #{value}
+	</delete>
+	
+	<delete id="deleteBatch">
+		delete from commercial_channel_app where id in 
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+</mapper>

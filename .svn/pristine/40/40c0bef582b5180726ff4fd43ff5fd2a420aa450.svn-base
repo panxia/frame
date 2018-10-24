@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.chunxin.dao.TaxDeclarationDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.chunxin.entity.TaxDeclarationEntity" id="taxDeclarationMap">
+        <result property="id" column="id"/>
+        <result property="payee" column="payee"/>
+        <result property="bankAccount" column="bank_account"/>
+        <result property="openBank" column="open_bank"/>
+        <result property="openPlace" column="open_place"/>
+        <result property="labourPerson" column="labour_person"/>
+        <result property="labourCardid" column="labour_cardid"/>
+        <result property="labourPhone" column="labour_phone"/>
+        <result property="serviceItem" column="service_item"/>
+        <result property="serviceTime" column="service_time"/>
+        <result property="preTax" column="pre_tax"/>
+        <result property="afterTax" column="after_tax"/>
+        <result property="actualPayment" column="actual_payment"/>
+    </resultMap>
+
+	<select id="queryObject" resultType="com.chunxin.entity.TaxDeclarationEntity">
+		select * from tax_declaration where id = #{value}
+	</select>
+
+	<select id="queryList" resultType="com.chunxin.entity.TaxDeclarationEntity">
+		select * from tax_declaration
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+			<otherwise>
+                order by id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="queryTotal" resultType="int">
+		select count(*) from tax_declaration 
+	</select>
+	 
+	<insert id="save" parameterType="com.chunxin.entity.TaxDeclarationEntity" useGeneratedKeys="true" keyProperty="id">
+		insert into tax_declaration
+		(
+			`payee`, 
+			`bank_account`, 
+			`open_bank`, 
+			`open_place`, 
+			`labour_person`, 
+			`labour_cardid`, 
+			`labour_phone`, 
+			`service_item`, 
+			`service_time`, 
+			`pre_tax`, 
+			`after_tax`, 
+			`actual_payment`
+		)
+		values
+		(
+			#{payee}, 
+			#{bankAccount}, 
+			#{openBank}, 
+			#{openPlace}, 
+			#{labourPerson}, 
+			#{labourCardid}, 
+			#{labourPhone}, 
+			#{serviceItem}, 
+			#{serviceTime}, 
+			#{preTax}, 
+			#{afterTax}, 
+			#{actualPayment}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="com.chunxin.entity.TaxDeclarationEntity">
+		update tax_declaration 
+		<set>
+			<if test="payee != null">`payee` = #{payee}, </if>
+			<if test="bankAccount != null">`bank_account` = #{bankAccount}, </if>
+			<if test="openBank != null">`open_bank` = #{openBank}, </if>
+			<if test="openPlace != null">`open_place` = #{openPlace}, </if>
+			<if test="labourPerson != null">`labour_person` = #{labourPerson}, </if>
+			<if test="labourCardid != null">`labour_cardid` = #{labourCardid}, </if>
+			<if test="labourPhone != null">`labour_phone` = #{labourPhone}, </if>
+			<if test="serviceItem != null">`service_item` = #{serviceItem}, </if>
+			<if test="serviceTime != null">`service_time` = #{serviceTime}, </if>
+			<if test="preTax != null">`pre_tax` = #{preTax}, </if>
+			<if test="afterTax != null">`after_tax` = #{afterTax}, </if>
+			<if test="actualPayment != null">`actual_payment` = #{actualPayment}</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<delete id="delete">
+		delete from tax_declaration where id = #{value}
+	</delete>
+	
+	<delete id="deleteBatch">
+		delete from tax_declaration where id in 
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+</mapper>
